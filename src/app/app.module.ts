@@ -7,6 +7,24 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFireAuth } from 'angularfire2/auth';
+import firebase from 'firebase';
+import { Ng2OrderModule } from 'ng2-order-pipe';
+import { MomentModule } from 'angular2-moment';
+import { AuthServiceProvider } from '../providers/auth-service/auth-service';
+
+  // Initialize Firebase
+  export const firebaseConfig = {
+    apiKey: "AIzaSyAMkNsDMcGKczJrS9w758ewRQsEf0NGREQ",
+    authDomain: "blog-di.firebaseapp.com",
+    databaseURL: "https://blog-di.firebaseio.com",
+    projectId: "blog-di",
+    storageBucket: "blog-di.appspot.com",
+    messagingSenderId: "332658053860"
+  };
+
 @NgModule({
   declarations: [
     MyApp,
@@ -14,7 +32,11 @@ import { HomePage } from '../pages/home/home';
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFireDatabaseModule,
+    Ng2OrderModule,
+    MomentModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -24,7 +46,10 @@ import { HomePage } from '../pages/home/home';
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    AuthServiceProvider,
+    AngularFireAuth,
+    AuthServiceProvider,
   ]
 })
 export class AppModule {}
