@@ -7,10 +7,23 @@
 </ion-header>
 
 <ion-content padding>
-  The world is your oyster.
+  <!-- The world is your oyster.
   <p>
     If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
   </p>
 
-  <button ion-button outline (click)="signInWithGoogle()">Google</button>
+  <button ion-button outline (click)="signInWithGoogle()">Google</button> -->
+
+  <button ion-button block color="danger" (click)="loginUser()" *ngIf="!userProfile">
+    <ion-icon name="logo-googleplus"></ion-icon>
+    Login with Google
+  </button>
+
+  <ion-item *ngIf="userProfile">
+    <ion-avatar item-left>
+      <img [src]="userProfile.photoURL">
+    </ion-avatar>
+    <h2>{{ userProfile.displayName }}</h2>
+    <h3>{{ userProfile.email }}</h3>
+  </ion-item>
 </ion-content>
