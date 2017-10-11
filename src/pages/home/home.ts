@@ -23,26 +23,4 @@ export class HomePage {
       });
   }
 
-  loginUser(): void {
-    this.googlePlus.login({
-      'webClientId': '332658053860-g2sh29627vn0692d8trtde6f83uo2vq8.apps.googleusercontent.com',
-      'offline': true
-    }).then( res => {
-      firebase.auth().signInWithCredential(firebase.auth.GoogleAuthProvider.credential(res.idToken))
-        .then( success => {
-          console.log("Firebase sucess: " + JSON.stringify(success));          
-        })
-        .catch( error => console.log("Firebase failure: " + JSON.stringify(error)));
-    }).catch(err => console.error(err));
-  }
-
-  // signInWithGoogle(): void {
-  //   this._auth.signInWithGoogle()
-  //     .then(() => this.onSignInSucess());
-  // }
-
-  // private onSignInSucess(): void {
-  //   console.log("Google display name ", this._auth.displayName());
-  // }
-
 }

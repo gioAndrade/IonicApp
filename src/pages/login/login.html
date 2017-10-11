@@ -1,0 +1,34 @@
+<!--
+  Generated template for the LoginPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header class="head">
+
+  <ion-navbar>
+    <ion-title></ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding class="body">
+    <button ion-button block color="danger" (click)="loginUser()" *ngIf="!userProfile">
+    <ion-icon name="logo-googleplus"></ion-icon>
+    Login with Google
+  </button>
+
+  <!-- <ion-item *ngIf="userProfile">
+    <ion-avatar item-left>
+      <img [src]="userProfile.photoURL">
+    </ion-avatar>
+    <h2>{{ userProfile.displayName }}</h2>
+    <h3>{{ userProfile.email }}</h3>
+  </ion-item>
+
+  <button ion-button block color="danger" (click)="signOut()">
+    <ion-icon name="logo-googleplus"></ion-icon>
+    Log Out
+  </button> -->
+</ion-content>
