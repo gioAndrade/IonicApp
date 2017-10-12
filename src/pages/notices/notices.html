@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-navbar class="head">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title class="title">Avisos
+      <ion-item *ngIf="userProfile">
+        <ion-avatar item-left>
+          <img [src]="userProfile.photoURL">
+        </ion-avatar>
+      </ion-item>
+    </ion-title>
+
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="body">
+  <ion-list>
+    <ion-item *ngFor="let notice of notices | async | orderBy: order : true">
+      <ion-thumbnail item-start>
+        <img src="assets/img/Blog DI 1.png">
+      </ion-thumbnail>
+      <article class="texto item item-thumbnail-left">
+        <header class="link">
+          <h3 style="white-space: pre-line;"><a href="#">{{notice.text}}</a></h3>
+          <time class="published" datetime="2015-10-20">{{notice.startedAt | date : "longDate"}}</time>
+        </header>
+      </article>
+    </ion-item>
+  </ion-list>
+</ion-content>

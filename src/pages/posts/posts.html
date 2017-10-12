@@ -1,0 +1,19 @@
+<ion-header>
+    <ion-navbar class="head">
+        <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+        <ion-title class="title">BlogDI
+            <ion-item *ngIf="userProfile">
+                <ion-avatar item-left>
+                    <img [src]="userProfile.photoURL">
+                </ion-avatar>
+            </ion-item>
+        </ion-title>
+
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+</ion-content>

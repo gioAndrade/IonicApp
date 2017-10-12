@@ -9,6 +9,11 @@ import { AuthServiceProvider } from '../providers/auth-service/auth-service';
 
 import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
+import { NoticesPage } from './../pages/notices/notices';
+import { PostsPage } from './../pages/posts/posts';
+import { SobrePage } from './../pages/sobre/sobre';
+import { ContatoPage } from './../pages/contato/contato';
+
 @Component({
   templateUrl: 'app.html'
 })
@@ -35,7 +40,10 @@ export class MyApp {
     // used for an example of ngFor and navigation
     this.pages = [
       { title: 'Home', component: HomePage },
-      { title: 'Login', component: LoginPage }
+      { title: 'Avisos', component: NoticesPage },
+      { title: 'Notícias', component: PostsPage },
+      { title: 'Sobre', component: SobrePage },
+      { title: 'Contato', component: ContatoPage }
     ];
 
   }

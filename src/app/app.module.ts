@@ -8,6 +8,10 @@ import { GooglePlus } from '@ionic-native/google-plus';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { LoginPage } from './../pages/login/login';
+import { NoticesPage } from './../pages/notices/notices';
+import { PostsPage } from './../pages/posts/posts';
+import { ContatoPage } from './../pages/contato/contato';
+import { SobrePage } from './../pages/sobre/sobre';
 
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
@@ -17,21 +21,25 @@ import { Ng2OrderModule } from 'ng2-order-pipe';
 import { MomentModule } from 'angular2-moment';
 import { AuthServiceProvider } from '../providers/auth-service/auth-service';
 
-  // Initialize Firebase
-  export const firebaseConfig = {
-    apiKey: "AIzaSyAMkNsDMcGKczJrS9w758ewRQsEf0NGREQ",
-    authDomain: "blog-di.firebaseapp.com",
-    databaseURL: "https://blog-di.firebaseio.com",
-    projectId: "blog-di",
-    storageBucket: "blog-di.appspot.com",
-    messagingSenderId: "332658053860"
-  };
+// Initialize Firebase
+export const firebaseConfig = {
+  apiKey: "AIzaSyAMkNsDMcGKczJrS9w758ewRQsEf0NGREQ",
+  authDomain: "blog-di.firebaseapp.com",
+  databaseURL: "https://blog-di.firebaseio.com",
+  projectId: "blog-di",
+  storageBucket: "blog-di.appspot.com",
+  messagingSenderId: "332658053860"
+};
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
-    LoginPage
+    LoginPage,
+    NoticesPage,
+    PostsPage,
+    SobrePage,
+    ContatoPage
   ],
   imports: [
     BrowserModule,
@@ -45,16 +53,20 @@ import { AuthServiceProvider } from '../providers/auth-service/auth-service';
   entryComponents: [
     MyApp,
     HomePage,
-    LoginPage
+    LoginPage,
+    NoticesPage,
+    PostsPage,
+    SobrePage,
+    ContatoPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
     AuthServiceProvider,
     AngularFireAuth,
     AuthServiceProvider,
     GooglePlus
   ]
 })
-export class AppModule {}
+export class AppModule { }

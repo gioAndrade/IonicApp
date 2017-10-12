@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-navbar class="head">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title class="title">BlogDI</ion-title>
+    <ion-item *ngIf="userProfile">
+      <ion-avatar item-left>
+        <img [src]="userProfile.photoURL">
+      </ion-avatar>
+    </ion-item>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-item><button ion-button clear item-start style="color:#31b591">Sobre</button>
+        <ion-thumbnail item-end>
+          <img src="assets/img/Blog DI 1.png">
+        </ion-thumbnail>
+      </ion-item>
+    </ion-card-header>
+    <ion-card-content>
+      <h2>
+        <p style="text-align: justify">O <b>Blog do DI</b> busca reunir e centralizar as principais informações geradas pelo curso de <b>Bacharelado em Ciência da Computação</b>          da Universidade do Estado do Rio Grande do Norte – <b>UERN</b>. Contribuir com a troca de informações, bem como
+          manter os discentes atualizados e informados sobre o andamento das atividades e acontecimentos do semestre é um
+          dos nossos principais deveres e objetivos. </p>
+
+        <p style="text-align: justify"> Para tal, fornecemos uma plataforma que permite a visualização e adição de notícias e informes, ferramentas de compartilhamento
+          junto à possibilidade de comentários foram adicionadas ao blog de forma a melhor a sua interação com os leitores.
+          A longo prazo, queremos nos tornar um meio de comunicação aberto entre os discentes e o corpo docente do curso.
+          Um canal focado nas necessidades do graduando, assim como uma forma de expor as contribuições geradas pelo programa
+          de graduação.</p>
+      </h2>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

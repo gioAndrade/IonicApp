@@ -1,0 +1,35 @@
+page-home {
+        .body {
+		background: #f4f4f4;
+    }
+
+    .head {
+		background: #f8f8f8;
+    }
+
+    .title{
+        width: 90px;
+    }
+
+    ion-card img {
+    display: block;
+    width: 75%;
+     margin: auto;
+    margin-top: 15px;
+    
+    }
+
+    .title {
+        font-family: "Raleway", Helvetica, sans-serif;
+        text-align: center;
+        font-size: 25px;
+        font-weight: 400;
+    }
+
+    .text{
+       font-family: "Raleway", Helvetica, sans-serif;
+        text-align: center;
+        font-size: 15px;
+        font-weight: 400; 
+    }
+}
