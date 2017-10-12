@@ -12,9 +12,10 @@ import { NoticesPage } from './../pages/notices/notices';
 import { PostsPage } from './../pages/posts/posts';
 import { ContatoPage } from './../pages/contato/contato';
 import { SobrePage } from './../pages/sobre/sobre';
+import { PostViewPage } from './../pages/post-view/post-view';
 
 import { AngularFireModule } from 'angularfire2';
-import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFireDatabaseModule } from 'angularfire2/database-deprecated';
 import { AngularFireAuth } from 'angularfire2/auth';
 import firebase from 'firebase';
 import { Ng2OrderModule } from 'ng2-order-pipe';
@@ -39,7 +40,8 @@ export const firebaseConfig = {
     NoticesPage,
     PostsPage,
     SobrePage,
-    ContatoPage
+    ContatoPage,
+    PostViewPage
   ],
   imports: [
     BrowserModule,
@@ -57,7 +59,8 @@ export const firebaseConfig = {
     NoticesPage,
     PostsPage,
     SobrePage,
-    ContatoPage
+    ContatoPage,
+    PostViewPage
   ],
   providers: [
     StatusBar,

@@ -1,12 +1,10 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
-/**
- * Generated class for the PostsPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database-deprecated';
+
+
+import { PostViewPage } from '../../pages/post-view/post-view';
 
 @IonicPage()
 @Component({
@@ -14,8 +12,16 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'posts.html',
 })
 export class PostsPage {
+  
+  posts: FirebaseListObservable<any[]>;
+  order: string = 'startedAt';
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, db: AngularFireDatabase) {
+    this.posts = db.list('/posts');
+  }
+
+  openViewPage(postId) {
+    this.navCtrl.push(PostViewPage, {postId});    
   }
 
   ionViewDidLoad() {

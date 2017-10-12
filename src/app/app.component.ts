@@ -20,7 +20,7 @@ import { ContatoPage } from './../pages/contato/contato';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = HomePage;
+  rootPage: any = PostsPage;
 
   userProfile: any = null;
 

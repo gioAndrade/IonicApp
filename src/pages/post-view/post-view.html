@@ -1,0 +1,80 @@
+<ion-header>
+    <ion-navbar class="head">
+        <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+        <ion-title class="title">{{post.title}}
+            <ion-item *ngIf="userProfile">
+                <ion-avatar item-left>
+                    <img [src]="userProfile.photoURL">
+                </ion-avatar>
+            </ion-item>
+        </ion-title>
+
+    </ion-navbar>
+</ion-header>
+
+
+
+<ion-content padding class="body">
+  <ion-card>
+    <ion-list >
+
+      <ion-item >
+        <ion-avatar item-start>
+          <img src="assets/img/Blog DI 1.png">
+        </ion-avatar>
+        <h2>{{post.autor}}</h2>
+        <p>{{post.startedAt | date : "longDate"}}</p>
+      </ion-item>
+
+      <img src="{{post.urlImagem}}">
+
+      <ion-card-content>
+        <p style="text-align: justify" [innerHTML]="post.text"></p>
+      </ion-card-content>
+
+      <ion-row>
+        <ion-col>
+          <button ion-button icon-left clear small>
+        <ion-icon name="thumbs-up"></ion-icon>
+        <div>12 Likes</div>
+      </button>
+        </ion-col>
+        <ion-col>
+          <button ion-button icon-left clear small>
+        <ion-icon name="text"></ion-icon>
+        <div>4 Comments</div>
+      </button>
+        </ion-col>
+        <ion-col center text-center>
+          <ion-note>
+            Last updated: {{post.startedAt | amTimeAgo}}
+          </ion-note>
+        </ion-col>
+      </ion-row>
+    </ion-list>
+
+  </ion-card>
+
+
+  <ion-list *ngFor="let comment of comments | async">
+    <ion-item>
+      <ion-avatar item-start>
+        <img src="{{comment.photoURL}}">
+      </ion-avatar>
+      <h2>{{comment.displayName}}</h2>
+      <p style="white-space: pre-line;">{{comment.text}}</p>
+      <ion-note item-end>{{comment.startedAt | date: 'amTimeAgo'}}</ion-note>
+    </ion-item>
+  </ion-list>
+
+  <ion-item *ngIf="userProfile">
+    <ion-textarea ng-required [(ngModel)]="newComment" placeholder="Adicionar comentário..."></ion-textarea>
+   </ion-item>
+  <button ion-button block color="default" (click)="addComment(newComment)" *ngIf="userProfile">Comentar</button>
+
+    <button ion-button block color="dark" (click)="showAlert()" *ngIf="!userProfile">Comentar</button> 
+
+
+</ion-content>

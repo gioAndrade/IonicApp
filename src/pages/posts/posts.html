@@ -3,7 +3,7 @@
         <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-        <ion-title class="title">BlogDI
+        <ion-title class="title">Notícias
             <ion-item *ngIf="userProfile">
                 <ion-avatar item-left>
                     <img [src]="userProfile.photoURL">
@@ -14,6 +14,23 @@
     </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-
-</ion-content>
+<ion-content padding class="body">
+  <ion-list>
+    <ion-item *ngFor="let post of posts | async | orderBy: order : true" (click)="openViewPage(post.$key)">
+      <ion-grid>
+        <ion-row>
+          <ion-col col-12>
+            <a style="text-decoration: none; color:#31b591"><h2 style="white-space: pre-line;">{{post.title}}</h2></a>
+          </ion-col>
+         <ion-col col-8 style=" overflow: hidden; white-space: nowrap; text-overflow: ellipsis; ">
+           <span class="date">{{post.startedAt | date : "longDate"}}</span>
+           <p [innerHTML]="post.text | slice:0:150"></p>
+         </ion-col>
+         <ion-col col-4>
+           <a href="/post/{{post.$id}}"><img src="assets/img/Blog DI 1.png" alt="{{post.title}}" width="100%" height="100%"></a>
+         </ion-col>
+      </ion-row>
+      </ion-grid>
+    </ion-item>
+  </ion-list>
+</ion-content> 
