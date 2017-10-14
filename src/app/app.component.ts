@@ -20,13 +20,19 @@ import { ContatoPage } from './../pages/contato/contato';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = PostsPage;
+  rootPage: any = HomePage;
 
   userProfile: any = null;
 
   pages: Array<{ title: string, component: any }>;
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, private _auth: AuthServiceProvider, private googlePlus: GooglePlus) {
+  constructor(
+    public platform: Platform,
+    public statusBar: StatusBar,
+    public splashScreen: SplashScreen,
+    private _auth: AuthServiceProvider,
+    private googlePlus: GooglePlus) {
+
     this.initializeApp();
 
     firebase.auth().onAuthStateChanged(user => {
@@ -50,10 +56,21 @@ export class MyApp {
 
   initializeApp() {
     this.platform.ready().then(() => {
-      // Okay, so the platform is ready and our plugins are available.
-      // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+
+      // OneSignal Code start:
+      // Enable to debug issues:
+      // window["plugins"].OneSignal.setLogLevel({logLevel: 4, visualLevel: 4});
+
+      var notificationOpenedCallback = function (jsonData) {
+        console.log('notificationOpenedCallback: ' + JSON.stringify(jsonData));
+      };
+
+      window["plugins"].OneSignal
+        .startInit("109807f2-9861-4195-8346-16b654817822", "332658053860")
+        .handleNotificationOpened(notificationOpenedCallback)
+        .endInit();
     });
   }
 
