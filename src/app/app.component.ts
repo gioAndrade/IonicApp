@@ -63,14 +63,14 @@ export class MyApp {
       // Enable to debug issues:
       // window["plugins"].OneSignal.setLogLevel({logLevel: 4, visualLevel: 4});
 
-      var notificationOpenedCallback = function (jsonData) {
-        console.log('notificationOpenedCallback: ' + JSON.stringify(jsonData));
-      };
+      // var notificationOpenedCallback = function (jsonData) {
+      //   console.log('notificationOpenedCallback: ' + JSON.stringify(jsonData));
+      // };
 
-      window["plugins"].OneSignal
-        .startInit("109807f2-9861-4195-8346-16b654817822", "332658053860")
-        .handleNotificationOpened(notificationOpenedCallback)
-        .endInit();
+      // window["plugins"].OneSignal
+      //   .startInit("109807f2-9861-4195-8346-16b654817822", "332658053860")
+      //   .handleNotificationOpened(notificationOpenedCallback)
+      //   .endInit();
     });
   }
 

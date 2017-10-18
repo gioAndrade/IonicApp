@@ -29,18 +29,25 @@
       </ion-card-content>
 
       <ion-row>
-        <ion-col>
-          <button ion-button icon-left clear small>
-        <ion-icon name="thumbs-up"></ion-icon>
-        <div>12 Likes</div>
-      </button>
+        <ion-col >
+          <button ion-button icon-left clear small  (click)="btnLike(post)" *ngIf="like">
+            <ion-icon name="thumbs-up"></ion-icon>
+            <div >{{post.numLikes}} Likes</div>
+          </button>
+
+          <button ion-button icon-left clear small  (click)="unlike(post)" *ngIf="!like">
+            <ion-icon name="thumbs-up"></ion-icon>
+            <div  > {{post.numLikes}}</div>
+          </button>
         </ion-col>
+
         <ion-col>
-          <button ion-button icon-left clear small>
-        <ion-icon name="text"></ion-icon>
-        <div>4 Comments</div>
-      </button>
+          <button ion-button icon-left clear small (click)="show = !show">
+            <ion-icon name="text"></ion-icon>
+            <div>{{arraySize.length}} Comments</div>
+          </button>
         </ion-col>
+
         <ion-col center text-center>
           <ion-note>
             Last updated: {{post.startedAt | amTimeAgo}}
@@ -52,28 +59,33 @@
   </ion-card>
 
 
-  
+
+  <div *ngIf="show">
     <ion-list *ngFor="let comment of comments | async">
       <ion-card>
-      <ion-item>
-        <ion-avatar item-start>
-          <img src="{{comment.photoURL}}">
-        </ion-avatar>
-        <h2>{{comment.displayName}}</h2>
-        <ion-note>{{comment.startedAt | date: "longDate"}}</ion-note>
-        <button *ngIf="userProfile.uid == comment.userUid" item-end ion-button icon-only (click)="openMenuComment(comment)" style="background-color:white; box-shadow: 0 0 black;"><ion-icon style="color:#6f6969" name="more"></ion-icon></button>
-      </ion-item>
-      <ion-card-content>{{comment.text}}</ion-card-content>
-       </ion-card>
+        <ion-item>
+          <ion-avatar item-start>
+            <img src="{{comment.photoURL}}">
+          </ion-avatar>
+          <h2>{{comment.displayName}}</h2>
+          <ion-note>{{comment.startedAt | amTimeAgo}}</ion-note>
+          <div *ngIf="userProfile">
+            <button *ngIf="userProfile.uid == comment.userUid" item-end ion-button icon-only (click)="openMenuComment(comment)" style="background-color:white; box-shadow: 0 0 black;"><ion-icon style="color:#6f6969" name="more"></ion-icon></button>
+          </div>
+        </ion-item>
+        <ion-card-content>{{comment.text}}</ion-card-content>
+      </ion-card>
     </ion-list>
- 
 
-  <ion-item *ngIf="userProfile">
-    <ion-textarea ng-required [(ngModel)]="newComment" placeholder="Adicionar comentário..."></ion-textarea>
-  </ion-item>
-  <button ion-button block color="default" (click)="addComment(newComment)" *ngIf="userProfile">Comentar</button>
 
-  <button ion-button block color="dark" (click)="showAlert()" *ngIf="!userProfile">Comentar</button>
+    <ion-item *ngIf="userProfile">
+      <ion-textarea ng-required [(ngModel)]="newComment" placeholder="Adicionar comentário..."></ion-textarea>
+    </ion-item>
+    <button ion-button block color="default" (click)="addComment(newComment)" *ngIf="userProfile">Comentar</button>
 
+    <button ion-button block color="dark" (click)="showAlert()" *ngIf="!userProfile">Comentar</button>
+  </div>
+
+  <button ion-button block color="dark" (click)="signInWithGoogle()" >Comentar</button>
 
 </ion-content>

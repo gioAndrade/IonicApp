@@ -27,8 +27,13 @@ export class PostViewPage {
   posts: FirebaseObjectObservable<any>;
   post: FirebaseObjectObservable<any>;
   comments: FirebaseListObservable<any>;
+  arraySize: FirebaseListObservable<any>;
   idParameter: any;
+  likeKey: any;
   userProfile: any = null;
+  likeData: FirebaseListObservable<any>;
+  showComment: boolean = false;
+  like: boolean = true;
 
   constructor(
     public navCtrl: NavController,
@@ -42,18 +47,6 @@ export class PostViewPage {
 
     afAuth.authState.subscribe((user: firebase.User) => this.currentUser = user);
 
-    let postId = navParams.get('postId');
-    this.idParameter = postId;
-    this.posts = db.object(`/posts/${postId}`);
-    
-    this.comments = db.list(`/posts/${postId}/comments`);
-    this.posts.forEach(element => {
-      this.post = element;
-    });
-
-    console.log(this.currentUser);
-    
-
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
         this.userProfile = user;
@@ -61,6 +54,47 @@ export class PostViewPage {
         this.userProfile = null;
       }
     });
+
+    let postId = navParams.get('postId');
+    this.idParameter = postId;
+    this.posts = db.object(`/posts/${postId}`);
+    this.posts.forEach(element => {
+      this.post = element;
+    });
+    this.comments = db.list(`/posts/${postId}/comments`);
+    this.comments.forEach(element => {
+      this.arraySize = element;
+    });
+    this.likeData = db.list(`/posts/${postId}/likeData`);
+    this.likeData.forEach(element => {
+      if (this.userProfile) {
+        if (element.userIdLike == this.userProfile.uid) {
+          this.like = false;
+          this.likeKey = element.$key;
+        }
+      }
+    })
+
+  }
+
+  btnLike(postInfo) {
+    this.like = false;
+    this.likeData.push({
+      userIdLike: this.userProfile.uid
+    });
+    this.posts.update({
+      numLikes: postInfo.numLikes + 1
+    })
+     
+  }
+
+  unlike(postInfo) {
+    this.like = true;
+    this.posts.update({
+      numLikes: postInfo.numLikes - 1
+    });
+    this.likeData.remove(this.likeKey);
+    console.log(this.like);
   }
 
   showAlert() {
@@ -120,8 +154,8 @@ export class PostViewPage {
       buttons: [
         {
           text: 'Editar',
-          handler: () => {   
-           this.navCtrl.push(EditCommentPage, {
+          handler: () => {
+            this.navCtrl.push(EditCommentPage, {
               commentId: comment.$key,
               postId: this.idParameter
             })
