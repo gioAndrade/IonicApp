@@ -29,7 +29,7 @@ export class EditCommentPage {
   }
 
   updateComment(comment) {
-    comment.startedAt= Date.now();
+    comment.startedAt= firebase.database.ServerValue.TIMESTAMP;
     this.commentRef.update(comment);       
     this.navCtrl.pop();
   }

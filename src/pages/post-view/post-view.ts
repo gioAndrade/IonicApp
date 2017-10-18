@@ -30,10 +30,11 @@ export class PostViewPage {
   arraySize: FirebaseListObservable<any>;
   idParameter: any;
   likeKey: any;
+  userLike: FirebaseListObservable<any>;
   userProfile: any = null;
   likeData: FirebaseListObservable<any>;
   showComment: boolean = false;
-  like: boolean = true;
+  like: boolean;
 
   constructor(
     public navCtrl: NavController,
@@ -66,14 +67,26 @@ export class PostViewPage {
       this.arraySize = element;
     });
     this.likeData = db.list(`/posts/${postId}/likeData`);
+    this.likeData.subscribe(element => {
+      if (element == null) {
+        this.like = true
+      } else {
+        if (this.userProfile) {
+          if (this.userProfile.uid == element.userIdLike) {
+            this.like = false
+          }
+        }
+      }
+      console.log(this.like);
+
+    })
     this.likeData.forEach(element => {
       if (this.userProfile) {
         if (element.userIdLike == this.userProfile.uid) {
-          this.like = false;
           this.likeKey = element.$key;
         }
       }
-    })
+    });
 
   }
 
@@ -85,7 +98,7 @@ export class PostViewPage {
     this.posts.update({
       numLikes: postInfo.numLikes + 1
     })
-     
+
   }
 
   unlike(postInfo) {
@@ -96,6 +109,8 @@ export class PostViewPage {
     this.likeData.remove(this.likeKey);
     console.log(this.like);
   }
+
+
 
   showAlert() {
     let alert = this.alertCtrl.create({
@@ -142,7 +157,7 @@ export class PostViewPage {
     this.comments.push({
       displayName: this.currentUser.displayName,
       photoURL: this.currentUser.photoURL,
-      startedAt: Date.now(),
+      startedAt: firebase.database.ServerValue.TIMESTAMP,
       text: newComment,
       userUid: this.currentUser.uid
     });
@@ -164,7 +179,7 @@ export class PostViewPage {
           text: 'Deletar',
           role: 'destructive',
           handler: () => {
-            console.log('Archive clicked');
+            this.comments.remove(comment.$key)
           }
         }, {
           text: 'Cancelar',
