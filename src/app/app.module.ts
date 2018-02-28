@@ -14,6 +14,7 @@ import { ContatoPage } from './../pages/contato/contato';
 import { SobrePage } from './../pages/sobre/sobre';
 import { PostViewPage } from './../pages/post-view/post-view';
 import { EditCommentPage } from './../pages/edit-comment/edit-comment';
+import { AnswersPage } from './../pages/answers/answers';
 
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database-deprecated';
@@ -43,7 +44,8 @@ export const firebaseConfig = {
     SobrePage,
     ContatoPage,
     PostViewPage,
-    EditCommentPage
+    EditCommentPage,
+    AnswersPage
   ],
   imports: [
     BrowserModule,
@@ -63,7 +65,8 @@ export const firebaseConfig = {
     SobrePage,
     ContatoPage,
     PostViewPage,
-    EditCommentPage
+    EditCommentPage,
+    AnswersPage
   ],
   providers: [
     StatusBar,

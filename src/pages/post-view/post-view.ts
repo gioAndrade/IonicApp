@@ -12,6 +12,8 @@ import { Observable } from 'rxjs/Observable';
 
 import { AuthServiceProvider } from './../../providers/auth-service/auth-service';
 import { EditCommentPage } from '../../pages/edit-comment/edit-comment';
+import { AnswersPage } from '../../pages/answers/answers';
+
 
 
 import { AngularFireDatabase, FirebaseObjectObservable, FirebaseListObservable } from 'angularfire2/database-deprecated';
@@ -161,7 +163,15 @@ export class PostViewPage {
       text: newComment,
       userUid: this.currentUser.uid
     });
+    
   }
+
+  respostas(comment){
+    this.navCtrl.push(AnswersPage, {
+      commentId:comment.$key,
+      postId: this.idParameter
+    });
+  };
 
   openMenuComment(comment: any) {
     let actionSheet = this.actionSheetCtrl.create({

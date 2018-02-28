@@ -13,6 +13,7 @@ import { NoticesPage } from './../pages/notices/notices';
 import { PostsPage } from './../pages/posts/posts';
 import { SobrePage } from './../pages/sobre/sobre';
 import { ContatoPage } from './../pages/contato/contato';
+import { AnswersPage } from './../pages/answers/answers';
 
 @Component({
   templateUrl: 'app.html'
@@ -20,11 +21,12 @@ import { ContatoPage } from './../pages/contato/contato';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = HomePage;
+  rootPage: any = PostsPage;
 
   userProfile: any = null;
+  logoURL: string;
 
-  pages: Array<{ title: string, component: any }>;
+  pages: Array<{ title: string, icon?: string, component: any }>;
 
   constructor(
     public platform: Platform,
@@ -43,13 +45,16 @@ export class MyApp {
       }
     });
 
+    this.logoURL = 'https://firebasestorage.googleapis.com/v0/b/blog-di.appspot.com/o/Blog-DI-1-2.png?alt=media&token=a319ddf3-e179-4fb4-b8d5-f0f3b5e7c9f7';
+
+
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'Home', component: HomePage },
-      { title: 'Avisos', component: NoticesPage },
-      { title: 'Notícias', component: PostsPage },
-      { title: 'Sobre', component: SobrePage },
-      { title: 'Contato', component: ContatoPage }
+      { title: 'Home', icon: 'home',component: HomePage },
+      { title: 'Avisos', icon: 'alert', component: NoticesPage },
+      { title: 'Notícias', icon: 'chatboxes', component: PostsPage },
+      { title: 'Sobre', icon: 'contacts', component: SobrePage },
+      { title: 'Contato', icon: 'information', component: ContatoPage }
     ];
 
   }
@@ -59,18 +64,18 @@ export class MyApp {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
 
-      // OneSignal Code start:
-      // Enable to debug issues:
-      // window["plugins"].OneSignal.setLogLevel({logLevel: 4, visualLevel: 4});
+    // OneSignal Code start:
+    // Enable to debug issues:
+    // window["plugins"].OneSignal.setLogLevel({logLevel: 4, visualLevel: 4});
 
-      // var notificationOpenedCallback = function (jsonData) {
-      //   console.log('notificationOpenedCallback: ' + JSON.stringify(jsonData));
-      // };
+    //   var notificationOpenedCallback = function (jsonData) {
+    //     console.log('notificationOpenedCallback: ' + JSON.stringify(jsonData));
+    //   };
 
-      // window["plugins"].OneSignal
-      //   .startInit("109807f2-9861-4195-8346-16b654817822", "332658053860")
-      //   .handleNotificationOpened(notificationOpenedCallback)
-      //   .endInit();
+    //   window["plugins"].OneSignal
+    //     .startInit("109807f2-9861-4195-8346-16b654817822", "332658053860")
+    //     .handleNotificationOpened(notificationOpenedCallback)
+    //     .endInit();
     });
   }
 
@@ -85,6 +90,15 @@ export class MyApp {
         })
         .catch(error => console.log("Firebase failure: " + JSON.stringify(error)));
     }).catch(err => console.error(err));
+  }
+
+  signInWithGoogle(): void {
+    this._auth.signInWithGoogle()
+      .then(() => this.onSignInSucess());
+  }
+
+  private onSignInSucess(): void {
+    console.log("Google display name ", this._auth.displayName());
   }
 
   signOut(): void {

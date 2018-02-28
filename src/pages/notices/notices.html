@@ -18,11 +18,11 @@
   <ion-list>
     <ion-item *ngFor="let notice of notices | async | orderBy: order : true">
       <ion-thumbnail item-start>
-        <img src="assets/img/Blog DI 1.png">
+        <img src="{{logoURL}}">
       </ion-thumbnail>
       <article class="texto item item-thumbnail-left">
         <header class="link">
-          <h3 style="white-space: pre-line;"><a href="#">{{notice.text}}</a></h3>
+          <h3 style="white-space: pre-line;"><a style="text-decoration: none; color:#6aadde" href="#">{{notice.text}}</a></h3>
           <time class="published" datetime="2015-10-20">{{notice.startedAt | date : "longDate"}}</time>
         </header>
       </article>

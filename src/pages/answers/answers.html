@@ -1,0 +1,35 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Respostas</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding class="body">
+  <div>
+    <ion-list *ngFor="let answer of allAnswersRef | async">
+      <ion-card>
+        <ion-item>
+          <ion-avatar item-start>
+            <img src="{{answer.photoURL}}">
+          </ion-avatar>
+          <h2>{{answer.displayName}}</h2>
+          <span item-end *ngIf="userProfile">
+            <button *ngIf="userProfile.uid == answer.userUid " item-end ion-button icon-only (click)="openMenuComment(answer)" style="background-color:white; box-shadow: 0 0 black;"><ion-icon style="color:#6f6969" name="more"></ion-icon></button>
+          </span>
+          <ion-note>Last updated: {{answer.startedAt | amTimeAgo:true}}</ion-note>
+
+        </ion-item>
+        <ion-card-content>{{answer.text}}</ion-card-content>
+      </ion-card>
+    </ion-list>
+
+    <ion-item *ngIf="userProfile">
+      <ion-textarea ng-required [(ngModel)]="newAnswer" placeholder="Adicionar comentário..." clearInput></ion-textarea>
+    </ion-item>
+    <button ion-button block color="default" (click)="createAnswer(newAnswer)" *ngIf="userProfile">Comentar</button>
+  </div>
+
+</ion-content>

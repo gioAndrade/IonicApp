@@ -10,15 +10,15 @@ import { AngularFireDatabase, FirebaseObjectObservable, FirebaseListObservable }
   templateUrl: 'notices.html'
 })
 export class NoticesPage {
-  
+
   notices: FirebaseListObservable<any[]>;
   order: string = 'startedAt';
+  logoURL: string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, db: AngularFireDatabase) {
     this.notices = db.list('/notices');
-    
-    console.log(this.notices);
-    
+    this.logoURL = 'https://firebasestorage.googleapis.com/v0/b/blog-di.appspot.com/o/Blog-DI-1-2.png?alt=media&token=a319ddf3-e179-4fb4-b8d5-f0f3b5e7c9f7';
+
   }
 
 

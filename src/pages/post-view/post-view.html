@@ -42,17 +42,17 @@
         </ion-col> -->
 
         <ion-col>
-          <button ion-button icon-left clear small (click)="show = !show">
+          <button id="commentBtn" ion-button icon-left clear small (click)="show = !show">
             <ion-icon name="text"></ion-icon>
             <div>{{arraySize.length}} Comentários</div>
           </button>
         </ion-col>
 
-          <ion-col center text-center>
+        <ion-col center text-center>
           <ion-note>
-            Last updated: {{post.startedAt |  date:'shortTime'}}
+            Last updated: {{post.startedAt | date:'shortTime'}}
           </ion-note>
-        </ion-col>  
+        </ion-col>
       </ion-row>
     </ion-list>
 
@@ -71,10 +71,13 @@
           <span item-end *ngIf="userProfile">
             <button *ngIf="userProfile.uid == comment.userUid " item-end ion-button icon-only (click)="openMenuComment(comment)" style="background-color:white; box-shadow: 0 0 black;"><ion-icon style="color:#6f6969" name="more"></ion-icon></button>
           </span>
-          <ion-note>{{comment.startedAt | amTimeAgo:true}}</ion-note>
+          <ion-note>Last updated: {{comment.startedAt | amTimeAgo:true}}</ion-note>
 
         </ion-item>
         <ion-card-content>{{comment.text}}</ion-card-content>
+        <button id="ansBtn" ion-button icon-right clear small (click)="respostas(comment)">
+            Respostas
+          </button>
       </ion-card>
     </ion-list>
 

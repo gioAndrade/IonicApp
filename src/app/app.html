@@ -12,22 +12,22 @@
           <img [src]="userProfile.photoURL">
         </ion-avatar>
         <h2>{{ userProfile.displayName }}</h2>
-        <button ion-button block color="danger" (click)="signOut()">
+        <button ion-button block class="logBtn"  (click)="signOut()">
          <ion-icon name="logo-googleplus"></ion-icon>
            Log Out
         </button>
       </ion-item>
       <ion-item *ngIf="!userProfile">
         <ion-avatar item-left>
-          <img style="border-radius: 0%" src="assets/img/Blog DI 3.png">
+          <img style="border-radius: 0%" src="{{logoURL}}">
         </ion-avatar>
       </ion-item>
 
       <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
-        {{p.title}}
+        {{p.title}} <ion-icon id="iconAlign" name="{{p.icon}}"></ion-icon>
       </button>
     </ion-list>
-    <button ion-button block color="danger" (click)="loginUser()" *ngIf="!userProfile">
+    <button ion-button block class="logBtn" (click)="signInWithGoogle()" *ngIf="!userProfile">
         <ion-icon name="logo-googleplus"></ion-icon>Login with Google
     </button>
   </ion-content>

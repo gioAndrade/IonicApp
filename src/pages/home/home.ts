@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 import { GooglePlus } from '@ionic-native/google-plus';
 import firebase from 'firebase';
 
-import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
+import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database-deprecated';
 
 @Component({
   selector: 'page-home',
@@ -11,16 +11,23 @@ import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 })
 export class HomePage {
 
-  userProfile: any = null;
+    post: FirebaseListObservable<any[]>;
+  notice: FirebaseListObservable<any[]>;
 
-  constructor(public navCtrl: NavController, private _auth: AuthServiceProvider, private googlePlus: GooglePlus) {
-      firebase.auth().onAuthStateChanged( user => {
-        if (user) {
-          this.userProfile = user;
-        }else{
-          this.userProfile = null;
-        }
-      });
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, db: AngularFireDatabase) {
+    this.post = db.list('/posts', {
+      query: {
+        limitToLast: 1
+      }
+    });
+    this.notice = db.list('/notices', {
+      query: {
+        limitToLast:1
+      }
+    });
+
+
   }
 
 }
