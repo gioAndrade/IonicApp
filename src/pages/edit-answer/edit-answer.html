@@ -1,0 +1,16 @@
+
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Editar comentário</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-item >
+    <ion-textarea ng-required [(ngModel)]="answer.text">{{answer.text}}</ion-textarea>
+  </ion-item>
+  <button ion-button block id="btnComment" (click)="updateAnswer(answer)">Confirmar</button>
+</ion-content>

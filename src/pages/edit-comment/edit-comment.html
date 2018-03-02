@@ -11,5 +11,5 @@
   <ion-item >
     <ion-textarea ng-required [(ngModel)]="comment.text">{{comment.text}}</ion-textarea>
   </ion-item>
-  <button ion-button block color="default" (click)="updateComment(comment)">Confirmar</button>
+  <button ion-button block id="btnComment" (click)="updateComment(comment)">Confirmar</button>
 </ion-content>

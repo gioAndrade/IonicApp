@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FormGroup, FormBuilder } from '@angular/forms';
 import { IonicPage, NavController, NavParams, AlertController, ActionSheetController } from 'ionic-angular';
 import { GooglePlus } from '@ionic-native/google-plus';
 import { AngularFireAuth } from 'angularfire2/auth';
@@ -13,6 +14,8 @@ import { Observable } from 'rxjs/Observable';
 import { AuthServiceProvider } from './../../providers/auth-service/auth-service';
 import { EditCommentPage } from '../../pages/edit-comment/edit-comment';
 import { AnswersPage } from '../../pages/answers/answers';
+import { LogServiceProvider } from './../../providers/log-service/log-service';
+
 
 
 
@@ -25,6 +28,7 @@ import { AngularFireDatabase, FirebaseObjectObservable, FirebaseListObservable }
 })
 export class PostViewPage {
 
+  private form: FormGroup;
   private currentUser: firebase.User;
   posts: FirebaseObjectObservable<any>;
   post: FirebaseObjectObservable<any>;
@@ -32,11 +36,15 @@ export class PostViewPage {
   arraySize: FirebaseListObservable<any>;
   idParameter: any;
   likeKey: any;
+  createLogs: FirebaseListObservable<any>;
+  lastActions: FirebaseListObservable<any>;
+  deleteLogs: FirebaseListObservable<any>;
   userLike: FirebaseListObservable<any>;
   userProfile: any = null;
   likeData: FirebaseListObservable<any>;
   showComment: boolean = false;
   like: boolean;
+
 
   constructor(
     public navCtrl: NavController,
@@ -46,6 +54,8 @@ export class PostViewPage {
     private googlePlus: GooglePlus,
     public afAuth: AngularFireAuth,
     private _auth: AuthServiceProvider,
+    private _log: LogServiceProvider,
+    private fb: FormBuilder,
     public actionSheetCtrl: ActionSheetController) {
 
     afAuth.authState.subscribe((user: firebase.User) => this.currentUser = user);
@@ -155,20 +165,35 @@ export class PostViewPage {
     console.log("Facebook display name ", this._auth.displayName());
   }
 
-  addComment(newComment: any) {
+  addComment() {
+    var action = 'Publicação de comentário';
+    var text = this.form.value["text"];
     this.comments.push({
+      commentId: this.navParams.get('commentId'),
       displayName: this.currentUser.displayName,
       photoURL: this.currentUser.photoURL,
       startedAt: firebase.database.ServerValue.TIMESTAMP,
-      text: newComment,
+      text: text,
       userUid: this.currentUser.uid
     });
-    
+    this.form.reset();
+    this._log.createLog(text, this.currentUser);
+    this._log.lastActionLog(action, this.currentUser);
   }
 
-  respostas(comment){
+  initForm() {
+    this.form = this.fb.group({
+      text: null
+    });
+  }
+
+  ngOnInit() {
+    this.initForm();
+  }
+
+  respostas(comment) {
     this.navCtrl.push(AnswersPage, {
-      commentId:comment.$key,
+      commentId: comment.$key,
       postId: this.idParameter
     });
   };
@@ -189,7 +214,11 @@ export class PostViewPage {
           text: 'Deletar',
           role: 'destructive',
           handler: () => {
+            var action = 'Comentário excluído';
+
             this.comments.remove(comment.$key)
+            this._log.deleteLog(comment.text, this.currentUser);
+            this._log.lastActionLog(action, this.currentUser);
           }
         }, {
           text: 'Cancelar',
@@ -202,7 +231,6 @@ export class PostViewPage {
     });
     actionSheet.present();
   }
-
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad PostViewPage');

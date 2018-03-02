@@ -32,4 +32,19 @@ page-home {
         font-size: 15px;
         font-weight: 400; 
     }
+
+    #imgHome img{
+        width: 100% !important;
+        margin-top: 0px !important;
+    }
+
+    #titleContent{
+        white-space: initial;
+        padding: 2px !important;
+    }
+
+    #titleText{
+        font-size: 16px;
+    }
+
 }

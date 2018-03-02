@@ -26,10 +26,11 @@
       </ion-card>
     </ion-list>
 
-    <ion-item *ngIf="userProfile">
-      <ion-textarea ng-required [(ngModel)]="newAnswer" placeholder="Adicionar comentário..." clearInput></ion-textarea>
+    <ion-item [formGroup]='form'>
+      <ion-textarea formControlName="text" placeholder="Adicionar comentário..."></ion-textarea>
     </ion-item>
-    <button ion-button block color="default" (click)="createAnswer(newAnswer)" *ngIf="userProfile">Comentar</button>
+    
+    <button ion-button block id="btnComment" (click)="createAnswer()">Comentar</button>
   </div>
 
 </ion-content>

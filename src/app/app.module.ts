@@ -1,9 +1,12 @@
+import { EditAnswerPage } from './../pages/edit-answer/edit-answer';
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { GooglePlus } from '@ionic-native/google-plus';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
@@ -23,6 +26,7 @@ import firebase from 'firebase';
 import { Ng2OrderModule } from 'ng2-order-pipe';
 import { MomentModule } from 'angular2-moment';
 import { AuthServiceProvider } from '../providers/auth-service/auth-service';
+import { LogServiceProvider } from '../providers/log-service/log-service';
 
 // Initialize Firebase
 export const firebaseConfig = {
@@ -45,7 +49,8 @@ export const firebaseConfig = {
     ContatoPage,
     PostViewPage,
     EditCommentPage,
-    AnswersPage
+    AnswersPage,
+    EditAnswerPage
   ],
   imports: [
     BrowserModule,
@@ -53,7 +58,9 @@ export const firebaseConfig = {
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireDatabaseModule,
     Ng2OrderModule,
-    MomentModule
+    MomentModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -66,7 +73,8 @@ export const firebaseConfig = {
     ContatoPage,
     PostViewPage,
     EditCommentPage,
-    AnswersPage
+    AnswersPage,
+    EditAnswerPage
   ],
   providers: [
     StatusBar,
@@ -75,7 +83,8 @@ export const firebaseConfig = {
     AuthServiceProvider,
     AngularFireAuth,
     AuthServiceProvider,
-    GooglePlus
+    GooglePlus,
+    LogServiceProvider
   ]
 })
 export class AppModule { }

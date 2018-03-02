@@ -1,11 +1,14 @@
+import { EditAnswerPage } from './../pages/edit-answer/edit-answer';
 import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { GooglePlus } from '@ionic-native/google-plus';
 import firebase from 'firebase';
+import { FormGroup } from '@angular/forms';
 
 import { AuthServiceProvider } from '../providers/auth-service/auth-service';
+import { LogServiceProvider } from './../providers/log-service/log-service';
 
 import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
@@ -21,7 +24,7 @@ import { AnswersPage } from './../pages/answers/answers';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = PostsPage;
+  rootPage: any = HomePage;
 
   userProfile: any = null;
   logoURL: string;

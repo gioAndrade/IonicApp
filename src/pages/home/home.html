@@ -7,15 +7,22 @@
     </ion-navbar>
 </ion-header>
 
-<ion-content padding class="body">
-    <ion-list>
-        <ion-item *ngFor="let noticia of post | async | orderBy: order : true" (click)="openViewPage(noticia.$key)">
-            <div>{{noticia.title}} </div>
-        </ion-item>
-    </ion-list>
+<ion-content class="body">
+    <ion-slides pager>
+        <ion-slide *ngFor="let noticia of post | async | orderBy: order : true" (click)="openViewPage(noticia.$key)">
+            <ion-card id="imgHome">
+                <img src="{{noticia.urlImagem}}" />
+                <ion-card-content id="titleContent">
+                    <ion-card-title id="titleText">
+                        {{noticia.title}}
+                    </ion-card-title>
+                </ion-card-content>
+            </ion-card>
+        </ion-slide>
+    </ion-slides>
 
     <ion-list>
-        <ion-item *ngFor="let aviso of notice | async | orderBy: order : true" (click)="openViewPage(notice.$key)">
+        <ion-item *ngFor="let aviso of notice | async">
             <div>{{aviso.text}} </div>
         </ion-item>
     </ion-list>
