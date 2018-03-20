@@ -19,6 +19,7 @@ import { LogServiceProvider } from './../../providers/log-service/log-service';
   templateUrl: 'answers.html',
 })
 export class AnswersPage {
+  alertCtrl: any;
 
   private currentUser: firebase.User;
   private form: FormGroup;
@@ -128,6 +129,29 @@ export class AnswersPage {
       ]
     });
     actionSheet.present();
+  }
+
+    showAlert() {
+    let alert = this.alertCtrl.create({
+      title: 'Olá!',
+      subTitle: 'Você precisa estar logado para comentar!',
+      buttons: [
+        {
+          text: 'Cancelar',
+          handler: data => {
+            console.log('Cancel clicked');
+
+          }
+        },
+        {
+          text: 'Entrar!',
+          handler: data => {
+            this._auth.signIn();
+          }
+        }
+      ]
+    });
+    alert.present();
   }
 
   ionViewDidLoad() {

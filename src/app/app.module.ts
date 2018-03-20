@@ -60,7 +60,7 @@ export const firebaseConfig = {
     Ng2OrderModule,
     MomentModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   bootstrap: [IonicApp],
   entryComponents: [

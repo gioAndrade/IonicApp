@@ -21,11 +21,22 @@
         </ion-slide>
     </ion-slides>
 
-    <ion-list>
-        <ion-item *ngFor="let aviso of notice | async">
-            <div>{{aviso.text}} </div>
-        </ion-item>
-    </ion-list>
+    <ion-slides pager>
+        <ion-slide *ngFor="let aviso of notice | async | orderBy: order : true">
+            <ion-card>
+                <ion-item>
+                    <ion-avatar item-start>
+                        <img src="{{logoURL}}">
+                    </ion-avatar>
+                    <p>{{aviso.startedAt | date : "longDate"}}</p>
+                </ion-item>
+                <ion-card-content>
+                    <h3 style="white-space: pre-line;"><a style="text-decoration: none; color:#6aadde" href="#">{{aviso.text}}</a></h3>
+
+                </ion-card-content>
+            </ion-card>
+        </ion-slide>
+    </ion-slides>
     <p class="text">DEPARTAMENTO DE INFORMÁTICA</p>
     <p class="text">UERN, CAMPUS CENTRAL</p>
 </ion-content>

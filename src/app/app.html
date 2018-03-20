@@ -27,7 +27,7 @@
         {{p.title}} <ion-icon id="iconAlign" name="{{p.icon}}"></ion-icon>
       </button>
     </ion-list>
-    <button ion-button block class="logBtn" (click)="signInWithGoogle()" *ngIf="!userProfile">
+    <button ion-button block class="logBtn" (click)="loginUser()" *ngIf="!userProfile">
         <ion-icon name="logo-googleplus"></ion-icon>Login with Google
     </button>
   </ion-content>

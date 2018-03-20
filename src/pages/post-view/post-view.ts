@@ -44,6 +44,7 @@ export class PostViewPage {
   likeData: FirebaseListObservable<any>;
   showComment: boolean = false;
   like: boolean;
+  logoURL: string;
 
 
   constructor(
@@ -57,6 +58,8 @@ export class PostViewPage {
     private _log: LogServiceProvider,
     private fb: FormBuilder,
     public actionSheetCtrl: ActionSheetController) {
+              this.logoURL = 'https://firebasestorage.googleapis.com/v0/b/blog-di.appspot.com/o/Blog-DI-1-2.png?alt=media&token=a319ddf3-e179-4fb4-b8d5-f0f3b5e7c9f7';
+
 
     afAuth.authState.subscribe((user: firebase.User) => this.currentUser = user);
 
@@ -139,16 +142,7 @@ export class PostViewPage {
         {
           text: 'Entrar!',
           handler: data => {
-            this.googlePlus.login({
-              'webClientId': '332658053860-g2sh29627vn0692d8trtde6f83uo2vq8.apps.googleusercontent.com',
-              'offline': true
-            }).then(res => {
-              firebase.auth().signInWithCredential(firebase.auth.GoogleAuthProvider.credential(res.idToken))
-                .then(success => {
-                  console.log("Firebase sucess: " + JSON.stringify(success));
-                })
-                .catch(error => console.log("Firebase failure: " + JSON.stringify(error)));
-            }).catch(err => console.error(err));
+            this._auth.signIn();
           }
         }
       ]

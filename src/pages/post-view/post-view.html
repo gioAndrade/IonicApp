@@ -16,7 +16,7 @@
 
       <ion-item>
         <ion-avatar item-start>
-          <img src="assets/img/Blog DI 1.png">
+          <img src="{{logoURL}}">
         </ion-avatar>
         <h2>{{post.autor}}</h2>
         <p>{{post.startedAt | date : "longDate"}}</p>
@@ -29,18 +29,6 @@
       </ion-card-content>
 
       <ion-row>
-        <!-- <ion-col>
-          <button ion-button icon-left clear small (click)="btnLike(post)" *ngIf="like">
-            <ion-icon name="thumbs-up"></ion-icon>
-            <div >{{post.numLikes}} Likes</div>
-          </button>
-
-          <button ion-button icon-left clear small (click)="unlike(post)" *ngIf="!like">
-            <ion-icon name="thumbs-up"></ion-icon>
-            <div  > {{post.numLikes}}</div>
-          </button>
-        </ion-col> -->
-
         <ion-col>
           <button id="commentBtn" ion-button icon-left clear small (click)="show = !show">
             <ion-icon name="text"></ion-icon>
@@ -86,7 +74,7 @@
     </ion-item>
     <button ion-button block id="btnComment" (click)="addComment()" *ngIf="userProfile">Comentar</button>
 
-    <button ion-button block color="default" (click)="showAlert()" *ngIf="!userProfile">Comentar</button>
+    <button ion-button block id="btnComment" (click)="showAlert()" *ngIf="!userProfile">Comentar</button>
   </div>
 
   <!-- <button ion-button block color="dark" (click)="signInWithGoogle()">Comentar</button> -->

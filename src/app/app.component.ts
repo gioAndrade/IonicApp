@@ -36,7 +36,7 @@ export class MyApp {
     public statusBar: StatusBar,
     public splashScreen: SplashScreen,
     private _auth: AuthServiceProvider,
-    private googlePlus: GooglePlus) {
+    private googlePlus: GooglePlus, ) {
 
     this.initializeApp();
 
@@ -53,46 +53,46 @@ export class MyApp {
 
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'Home', icon: 'home',component: HomePage },
+      { title: 'Home', icon: 'home', component: HomePage },
       { title: 'Avisos', icon: 'alert', component: NoticesPage },
       { title: 'Notícias', icon: 'chatboxes', component: PostsPage },
       { title: 'Sobre', icon: 'contacts', component: SobrePage },
       { title: 'Contato', icon: 'information', component: ContatoPage }
     ];
 
+//     // let status bar overlay webview
+// this.statusBar.overlaysWebView(true);
+
+// // set status bar to white
+// this.statusBar.backgroundColorByHexString('#ffffff');
+
   }
+
+
 
   initializeApp() {
     this.platform.ready().then(() => {
-      this.statusBar.styleDefault();
+      this.statusBar.styleLightContent();
       this.splashScreen.hide();
 
-    // OneSignal Code start:
-    // Enable to debug issues:
-    // window["plugins"].OneSignal.setLogLevel({logLevel: 4, visualLevel: 4});
 
-    //   var notificationOpenedCallback = function (jsonData) {
-    //     console.log('notificationOpenedCallback: ' + JSON.stringify(jsonData));
-    //   };
+      // OneSignal Code start:
+      // Enable to debug issues:
+      // //window["plugins"].OneSignal.setLogLevel({logLevel: 4, visualLevel: 4});
 
-    //   window["plugins"].OneSignal
-    //     .startInit("109807f2-9861-4195-8346-16b654817822", "332658053860")
-    //     .handleNotificationOpened(notificationOpenedCallback)
-    //     .endInit();
+        var notificationOpenedCallback = function (jsonData) {
+          console.log('notificationOpenedCallback: ' + JSON.stringify(jsonData));
+        };
+
+        window["plugins"].OneSignal
+          .startInit("109807f2-9861-4195-8346-16b654817822", "332658053860")
+          .handleNotificationOpened(notificationOpenedCallback)
+          .endInit();
     });
   }
 
   loginUser(): void {
-    this.googlePlus.login({
-      'webClientId': '332658053860-g2sh29627vn0692d8trtde6f83uo2vq8.apps.googleusercontent.com',
-      'offline': true
-    }).then(res => {
-      firebase.auth().signInWithCredential(firebase.auth.GoogleAuthProvider.credential(res.idToken))
-        .then(success => {
-          console.log("Firebase sucess: " + JSON.stringify(success));
-        })
-        .catch(error => console.log("Firebase failure: " + JSON.stringify(error)));
-    }).catch(err => console.error(err));
+    this._auth.signIn();
   }
 
   signInWithGoogle(): void {
